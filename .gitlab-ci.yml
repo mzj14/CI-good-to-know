@@ -1,0 +1,29 @@
+image: python:3.6.8
+
+before_script:
+  - pip install virtualenv
+  - virtualenv --python=python3 venv
+  - python --version
+  - which python
+  - source venv/bin/activate
+  - pip install -r requirements.txt
+
+stages:
+  - lint
+  - test
+
+simple_lint:
+  stage: lint
+  script:
+    - source venv/bin/activate
+    - flake8 calculator.py
+
+simple_test:
+  stage: test
+  script:
+    - source venv/bin/activate
+    - pytest calculator_t.py -v --cov
+
+after_script:
+  - echo "CI is done."
+  - echo "Please see the result."
