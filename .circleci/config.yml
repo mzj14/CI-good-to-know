@@ -1,0 +1,21 @@
+version: 2.0
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.8
+    working_directory: ~/demo
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            virtualenv --python=python3 venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+      - run:
+          name: run tests
+          command: |
+            flake8 calculator.py
+            pytest calculator_t.py -v --cov
+            
+
