@@ -15,6 +15,7 @@ jobs:
       - run:
           name: run tests
           command: |
+            source venv/bin/activate
             flake8 calculator.py
             pytest calculator_t.py -v --cov
             
